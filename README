@@ -1,0 +1,25 @@
+
+This repository will hold a design for a logical analyzer based on the Spartan-3 develpment board.
+
+VHDL:
+
+- input section: monitor digital lines for change.
+- if changes are detected, push them into a FIFO.
+- output section: when a change is available in the FIFO, publish it to the RS-232.
+- RS-232 out format:
+
+{timestamp:64} {event-nr:64} {bit-state:64} <crc:32><CR><LF>
+
+each event: 16 + 1 + 16 + 1 + 16 + 1 + 8 + 2 == 61 RS-232 characters
+
+115200 [bauds / second] / 10 [bauds / character] / 61 [characters / event] == 188.5 [events / second] is sustainable.
+
+0000000000000000 0000000000000000 0000000000000000 00000000
+0000000000000001 0000000000000001 0000000000000001 00000000
+
+* Open questions: will we use board RAM or the coregen FIFO?
+
+* Show status via the digital counter
+* Show blinking lights on activity
+* Show 1 PPS blinking light
+* Show FIFO status (EMPTY / FULL)
