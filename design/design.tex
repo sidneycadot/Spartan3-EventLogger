@@ -1,0 +1,87 @@
+\documentclass[a4paper,twoside]{report}
+
+\usepackage{charter}
+\usepackage{parskip}
+\usepackage{graphicx}
+
+\title{Spartan-3 Development Board Event Logger}
+\author{Sidney~Cadot}
+
+\begin{document}
+%
+\maketitle
+\tableofcontents
+%
+\chapter{Introduction}
+
+This part is to be written.
+
+\chapter{Design Overview}
+
+See Figure~\ref{fig:dataflow}.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=\textwidth]{dataflow}
+\end{center}
+\caption{Dataflow}
+\label{fig:dataflow} % label should come after the caption.
+\end{figure}
+%
+See Figure~\ref{fig:dataflow}.
+
+\chapter{Design Entities}
+
+This part is to be written.
+
+\section{EventLogger}
+
+This is the top-level design element.
+
+Register all inputs to make them clock-synchronous.
+
+Register all outputs to make them clock-synchronous.
+
+\section{InputSection}
+
+Time stamps, sequence numbers, and state vector.
+
+\section{EventFifo}
+
+Wrapper around the GenericFifo.
+
+\section{GenericFifo}
+
+A generic synchronous fifo.
+
+\section{DualPortRAM}
+
+Dual Port RAM, to be implemented using block RAM resources.
+
+\section{EventPrinter}
+
+Pick up an Event from the EventFifo, send a string representation to the SerialTransmitter as a stream of ASCII characters.
+
+At the same time, calculate the CRC-32 of the concatenated bytes that make up the sequence number, timestamp, and bit vectors.
+
+\section{CRC32}
+
+Calculate a standard CRC-32 based on input nibbles.
+
+\section{SerialTransmitter}
+
+Pick up an octet if it is made available, and transmit it to a serial line. Insert start- and stop bits as needed.
+
+\chapter{Future Enhancements}
+
+This part is to be written.
+
+\section{Ethernet backend}
+
+This part is to be written.
+
+\section{Using external RAM resources}
+
+This part is to be written.
+
+\end{document}
