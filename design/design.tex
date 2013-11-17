@@ -8,10 +8,10 @@
 \author{Sidney~Cadot}
 
 \begin{document}
-%
+
 \maketitle
 \tableofcontents
-%
+
 \chapter{Introduction}
 
 This part is to be written.
@@ -27,7 +27,7 @@ See Figure~\ref{fig:dataflow}.
 \caption{Dataflow}
 \label{fig:dataflow} % label should come after the caption.
 \end{figure}
-%
+
 See Figure~\ref{fig:dataflow}.
 
 \chapter{Design Entities}
@@ -46,13 +46,20 @@ Register all outputs to make them clock-synchronous.
 
 Time stamps, sequence numbers, and state vector.
 
-\section{EventFifo}
+\section{EventFIFO}
 
-Wrapper around the GenericFifo.
+Wrapper around the GenericFIFO.
 
-\section{GenericFifo}
+How many entries?
 
-A generic synchronous fifo.
+%\begin{table}
+%\begin{tabular}
+%\end{tabular}
+%\end{table}
+
+\section{GenericFIFO}
+
+A generic synchronous FIFO.
 
 \section{DualPortRAM}
 
@@ -63,6 +70,17 @@ Dual Port RAM, to be implemented using block RAM resources.
 Pick up an Event from the EventFifo, send a string representation to the SerialTransmitter as a stream of ASCII characters.
 
 At the same time, calculate the CRC-32 of the concatenated bytes that make up the sequence number, timestamp, and bit vectors.
+
+{\small
+\begin{verbatim}
+0000000000000000 0000000000000000 0000000000000000 aaaaaaaa<cr><lf>
+\end{verbatim}
+}
+
+One event per line.
+
+A single event is 16+1+16+1+16+1+8+2 = 61 ASCII characters.
+At 115200 baud, and assuming 8-bits, no parity, 1 stop bit, this means we can print up to 188.852 events per second.
 
 \section{CRC32}
 
