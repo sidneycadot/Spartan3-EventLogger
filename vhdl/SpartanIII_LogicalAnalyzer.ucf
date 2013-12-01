@@ -1,0 +1,64 @@
+
+# Clock (50 MHz)
+
+NET "CLK_50MHz" LOC = "T9";
+
+# BUTTON (active high)
+
+NET "BUTTON<0>" LOC = "M13";
+NET "BUTTON<1>" LOC = "M14";
+NET "BUTTON<2>" LOC = "L13";
+NET "BUTTON<3>" LOC = "L14";
+
+# SWITCH (active high)
+
+NET "SWITCH<0>" LOC = "F12";
+NET "SWITCH<1>" LOC = "G12";
+NET "SWITCH<2>" LOC = "H14";
+NET "SWITCH<3>" LOC = "H13";
+NET "SWITCH<4>" LOC = "J14";
+NET "SWITCH<5>" LOC = "J13";
+NET "SWITCH<6>" LOC = "K14";
+NET "SWITCH<7>" LOC = "K13";
+
+# LEDs (active high)
+
+NET "LED<0>" LOC = "K12";
+NET "LED<1>" LOC = "P14";
+NET "LED<2>" LOC = "L12";
+NET "LED<3>" LOC = "N14";
+NET "LED<4>" LOC = "P13";
+NET "LED<5>" LOC = "N12";
+NET "LED<6>" LOC = "P12";
+NET "LED<7>" LOC = "P11";
+
+# SSEG_SELECT and SSEG_SEGMENT (both ACTIVE LOW)
+
+NET "SSEG_SEGMENT<0>" LOC = "E14";
+NET "SSEG_SEGMENT<1>" LOC = "G13";
+NET "SSEG_SEGMENT<2>" LOC = "N15";
+NET "SSEG_SEGMENT<3>" LOC = "P15";
+NET "SSEG_SEGMENT<4>" LOC = "R16";
+NET "SSEG_SEGMENT<5>" LOC = "F13";
+NET "SSEG_SEGMENT<6>" LOC = "N16";
+NET "SSEG_SEGMENT<7>" LOC = "P16";
+
+NET "SSEG_SELECT<0>" LOC = "D14";
+NET "SSEG_SELECT<1>" LOC = "G14";
+NET "SSEG_SELECT<2>" LOC = "F14";
+NET "SSEG_SELECT<3>" LOC = "E13";
+
+# RS232 out
+
+NET "RS232_OUT" LOC = "R13";
+
+# Port B1 inputs
+
+NET "B1_IN<0>"  LOC = "C10";
+NET "B1_IN<1>"  LOC = "E10";
+NET "B1_IN<2>"  LOC = "C11";
+NET "B1_IN<3>"  LOC = "D11";
+
+# Port A2 outputs
+
+NET "A2_OUT"    LOC = "E6";
