@@ -119,7 +119,7 @@ begin
             EVENT_DATA_VALID => sInputSectionEventDataValid
         );
 
-    SynchronousFifo_instance : entity SynchronousFifo
+    SynchronousEventFifo_instance : entity SynchronousEventFifo
         port map (
             CLK            => CLK,
             RESET          => rCurrent.reset,

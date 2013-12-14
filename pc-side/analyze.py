@@ -220,7 +220,7 @@ def read_log(filename):
     plt.show()
 
 def main():
-    read_log("LOG3")
+    read_log("LOG4")
 
 if __name__ == "__main__":
     main()

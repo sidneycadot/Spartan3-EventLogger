@@ -3,29 +3,27 @@ library ieee;
 use ieee.std_logic_1164.all,
     ieee.numeric_std.all;
 
-use work.EventTypePackage.all;
-
-entity SynchronousFifo is
+entity SynchronousGenericFifo is
     port (
         CLK            : in  std_logic;
         RESET          : in  boolean;
-        DATA_IN        : in  EventType;
+        DATA_IN        : in  std_logic_vector(191 downto 0);
         DATA_IN_VALID  : in  boolean;
         DATA_IN_READY  : out boolean;
-        DATA_OUT       : out EventType;
+        DATA_OUT       : out std_logic_vector(191 downto 0);
         DATA_OUT_VALID : out boolean;
         DATA_OUT_READY : in  boolean
     );
-end entity SynchronousFifo;
+end entity SynchronousGenericFifo;
 
-architecture arch of SynchronousFifo is
+architecture arch of SynchronousGenericFifo is
 
 constant NumEntries : positive := 5;
 
 type IndexType is range 0 to NumEntries - 1;
 type CountType is range 0 to NumEntries;
 
-type StorageType is array (IndexType) of EventType;
+type StorageType is array (IndexType) of std_logic_vector(191 downto 0);
 
 type Registers is record
         storage      : StorageType;
@@ -33,17 +31,17 @@ type Registers is record
         tail         : IndexType;
         count        : CountType;
         dataInReady  : boolean;
-        dataOut      : EventType;
+        dataOut      : std_logic_vector(191 downto 0);
         dataOutValid : boolean;
     end record Registers;
 
 constant cInitRegisters : Registers := (
-        storage      => (others => cNullEvent),
+        storage      => (others => (others => '0')),
         head         => 0, -- points to oldest element
         tail         => 0, -- points to where a new element will go.
         count        => 0,
         dataInReady  => true,
-        dataOut      => cNullEvent,
+        dataOut      => (others => '0'),
         dataOutValid => false
     );
 
@@ -53,7 +51,7 @@ signal sNext : Registers;
 
 begin
 
-    combinatorial : process (rCurrent, DATA_IN, DATA_IN_VALID, DATA_OUT_READY) is
+    combinatorial : process (rCurrent, DATA_IN, DATA_IN_VALID, DATA_OUT_READY, RESET) is
 
     variable vNext : Registers;
 
@@ -101,7 +99,7 @@ begin
             vNext.dataOut := vNext.storage(vNext.head);
             vNext.dataOutValid := true;
         else
-            vNext.dataOut := cNullEvent;
+            vNext.dataOut := (others => '0');
             vNext.dataOutValid := false;
         end if;
 
