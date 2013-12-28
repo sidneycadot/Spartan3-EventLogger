@@ -41,8 +41,8 @@ begin
 
     DATA_OUT <= (
         sequenceNr => sDataOut(191 downto 128),
-        timestamp  => sDataOut(127 downto 64),
-        data       => sDataOut(63 downto 0)
+        timestamp  => sDataOut(127 downto  64),
+        data       => sDataOut( 63 downto   0)
     );
 
 end architecture arch;

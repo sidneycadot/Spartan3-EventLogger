@@ -41,7 +41,7 @@ signal sNext : Registers;
 
 begin
 
-    combinatorial : process (rCurrent, MONITOR_DATA) is
+    combinatorial : process (rCurrent, MONITOR_DATA, RESET) is
 
     variable vNext : Registers;
 
