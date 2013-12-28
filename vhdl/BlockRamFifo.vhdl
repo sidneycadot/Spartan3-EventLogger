@@ -3,7 +3,7 @@ library ieee;
 use ieee.std_logic_1164.all,
     ieee.numeric_std.all;
 
-entity SynchronousGenericFifo is
+entity BlockRamFifo is
     port (
         CLK            : in  std_logic;
         RESET          : in  boolean;
@@ -14,9 +14,9 @@ entity SynchronousGenericFifo is
         DATA_OUT_VALID : out boolean;
         DATA_OUT_READY : in  boolean
     );
-end entity SynchronousGenericFifo;
+end entity BlockRamFifo;
 
-architecture arch of SynchronousGenericFifo is
+architecture arch of BlockRamFifo is
 
 constant NumEntries : positive := 1024;
 
@@ -126,7 +126,7 @@ begin
 
     sRamWriteDataValid <= (rCurrent.count /= CountType'high) and DATA_IN_VALID;
 
-    bram : entity BlockRAM
+    BlockRAM_instance : entity BlockRam
         port map(
             CLK          => CLK,
             ADDR_I       => sRamWriteAddress,

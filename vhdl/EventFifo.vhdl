@@ -3,9 +3,9 @@ library ieee;
 use ieee.std_logic_1164.all,
     ieee.numeric_std.all;
 
-use work.EventTypePackage.all;
+use work.EventLoggerPackage.all;
 
-entity SynchronousEventFifo is
+entity EventFifo is
     port (
         CLK            : in  std_logic;
         RESET          : in  boolean;
@@ -16,9 +16,9 @@ entity SynchronousEventFifo is
         DATA_OUT_VALID : out boolean;
         DATA_OUT_READY : in  boolean
     );
-end entity SynchronousEventFifo;
+end entity EventFifo;
 
-architecture arch of SynchronousEventFifo is
+architecture arch of EventFifo is
 
 signal sDataIn  : std_logic_vector(191 downto 0);
 signal sDataOut : std_logic_vector(191 downto 0);
@@ -27,7 +27,7 @@ begin
 
     sDataIn <= DATA_IN.sequenceNr & DATA_IN.timestamp & DATA_IN.data;
 
-    SynchronousGenericFifo_instance: entity SynchronousGenericFifo
+    BlockRamFifo_instance: entity BlockRamFifo
         port map (
             CLK            => CLK,
             RESET          => RESET,

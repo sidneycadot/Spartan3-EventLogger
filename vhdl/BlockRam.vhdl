@@ -7,22 +7,22 @@ use ieee.std_logic_1164.all,
 -- This implements a 1024-element RAM of 192-bit words.
 -- This fits snugly in the BRAM resources available on an XC3S200.
 
-entity BlockRAM is
+entity BlockRam is
     port (
         CLK          : in  std_logic;
-        ADDR_I       : in  unsigned(1 downto 0);
-        DATA_I       : in  std_logic_vector(7 downto 0);
+        ADDR_I       : in  unsigned(9 downto 0);
+        DATA_I       : in  std_logic_vector(191 downto 0);
         DATA_I_VALID : in  boolean;
-        ADDR_O       : in  unsigned(1 downto 0);
-        DATA_O       : out std_logic_vector(7 downto 0)
+        ADDR_O       : in  unsigned(9 downto 0);
+        DATA_O       : out std_logic_vector(191 downto 0)
     );
-end entity BlockRAM;
+end entity BlockRam;
 
-architecture arch of BlockRAM is
+architecture arch of BlockRam is
 
-type IndexType is range 0 to 1;
+type IndexType is range 0 to 1023;
 
-type RamType is array(IndexType) of std_logic_vector(7 downto 0);
+type RamType is array(IndexType) of std_logic_vector(191 downto 0);
 
 signal ram : RamType;
 

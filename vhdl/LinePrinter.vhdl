@@ -4,7 +4,7 @@ library ieee;
 
 use ieee.std_logic_1164.all;
 
-use work.EventTypePackage.EventType;
+use work.EventLoggerPackage.EventType;
 
 entity LinePrinter is
     port (
@@ -174,8 +174,11 @@ begin
         
         if vProceed then
 
-            -- We are using the print states to calculate the CRC. of the concatenation of the
+            -- We are using the print states to calculate the CRC of the concatenation of the
             -- bytes that make up the event data.
+            -- Note the order by which we offer the nibbles to the CalcCrc32 entity.
+            -- We start with the leftmost byte, and offer the bits with the least-significant
+            -- nibble first.
 
             case vNext.state is
 
@@ -372,7 +375,7 @@ begin
         end if;
     end process sequential;
 
-    crc : entity CalcCRC32
+    CalcCrc32_instance : entity CalcCrc32
         port map (
             CLK          => CLK,
             RESET        => rCurrent.checksumReset,

@@ -3,7 +3,7 @@ library ieee;
 use ieee.std_logic_1164.all,
     ieee.numeric_std.all;
 
-use work.EventTypePackage.EventType;
+use work.EventLoggerPackage.EventType;
 
 entity InputSection is
     port (

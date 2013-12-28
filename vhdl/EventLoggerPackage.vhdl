@@ -3,7 +3,7 @@ library ieee;
 
 use ieee.std_logic_1164.all;
 
-package EventTypePackage is
+package EventLoggerPackage is
 
 type EventType is record
         sequenceNr: std_logic_vector(63 downto 0);
@@ -11,6 +11,6 @@ type EventType is record
         data      : std_logic_vector(63 downto 0);
     end record EventType;
 
-constant cNullEvent : EventType := (sequenceNr => (others => '0'), timestamp => (others => '0'), data => (others => '0'));
+--constant cNullEvent : EventType := (sequenceNr => (others => '0'), timestamp => (others => '0'), data => (others => '0'));
 
-end EventTypePackage;
+end EventLoggerPackage;
