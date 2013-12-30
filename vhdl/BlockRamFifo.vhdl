@@ -23,33 +23,26 @@ constant NumEntries : positive := 1024;
 type IndexType is range 0 to NumEntries - 1;
 type CountType is range 0 to NumEntries;
 
-type StorageType is array (IndexType) of std_logic_vector(191 downto 0);
-
 type Registers is record
-        head         : IndexType;
-        tail         : IndexType;
-        count        : CountType;
-        dataInReady  : boolean;
-        dataOut      : std_logic_vector(191 downto 0);
-        dataOutValid : boolean;
+        head  : IndexType;
+        tail  : IndexType;
+        count : CountType;
     end record Registers;
 
 constant cInitRegisters : Registers := (
         head         => 0, -- points to oldest element
         tail         => 0, -- points to where a new element will go.
-        count        => 0,
-        dataInReady  => true,
-        dataOut      => (others => '0'),
-        dataOutValid => false
+        count        => 0
     );
 
 signal rCurrent : Registers := cInitRegisters;
 
 signal sNext : Registers;
 
-signal sRamWriteAddress   : unsigned(9 downto 0);
+signal sHeadAddress : unsigned(9 downto 0);
+signal sTailAddress : unsigned(9 downto 0);
+
 signal sRamWriteDataValid : boolean;
-signal sRamReadAddress    : unsigned(9 downto 0);
 
 begin
 
@@ -94,18 +87,6 @@ begin
 
         end if;
 
-        -- Set up data-in ready
-
-        vNext.dataInReady := (vNext.count /= CountType'high);
-
-        -- Set up data out
-
-        if (vNext.count /= 0) then
-            vNext.dataOutValid := true;
-        else
-            vNext.dataOutValid := false;
-        end if;
-
         if RESET then
             vNext := cInitRegisters;
         end if;
@@ -121,18 +102,18 @@ begin
         end if;
     end process sequential;
 
-    sRamWriteAddress <= to_unsigned(natural(rCurrent.tail), 10);
-    sRamReadAddress  <= to_unsigned(natural(rCurrent.head), 10);
+    sHeadAddress <= to_unsigned(natural(rCurrent.head) - 1, 10);
+    sTailAddress <= to_unsigned(natural(rCurrent.tail), 10);
 
     sRamWriteDataValid <= (rCurrent.count /= CountType'high) and DATA_IN_VALID;
 
-    BlockRAM_instance : entity BlockRam
+    BlockRam_instance : entity BlockRam
         port map(
             CLK          => CLK,
-            ADDR_I       => sRamWriteAddress,
+            ADDR_I       => sTailAddress,
             DATA_I       => DATA_IN,
             DATA_I_VALID => sRamWriteDataValid,
-            ADDR_O       => sRamReadAddress,
+            ADDR_O       => sHeadAddress,
             DATA_O       => DATA_OUT
         );
 

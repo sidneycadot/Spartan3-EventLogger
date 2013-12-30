@@ -5,7 +5,13 @@ use ieee.std_logic_1164.all,
     ieee.numeric_std.all;
 
 -- This implements a 1024-element RAM of 192-bit words.
--- This fits snugly in the BRAM resources available on an XC3S200.
+-- This fits comfortably in the BRAM resources available on an XC3S200.
+
+-- We implement a SYNCHRONOUS ram:
+-- (1) On the input side, the RAM is updated at the up-edge of the clock
+-- (2) On the output side, the ADDR_O is registered on the up-edge of the clock,
+--     and the DATA_O continuously reflects the RAM at the registered address.
+
 
 entity BlockRam is
     port (
@@ -15,7 +21,7 @@ entity BlockRam is
         DATA_I_VALID : in  boolean;
         ADDR_O       : in  unsigned(9 downto 0);
         DATA_O       : out std_logic_vector(191 downto 0)
-    );
+    );    
 end entity BlockRam;
 
 architecture arch of BlockRam is

@@ -2,7 +2,7 @@
 
 import serial, re, binascii, time
 
-fpga = serial.Serial("/dev/ttyUSB3", 115200, serial.EIGHTBITS, serial.PARITY_NONE, serial.STOPBITS_ONE)
+fpga = serial.Serial("/dev/ttyUSB1", 115200, serial.EIGHTBITS, serial.PARITY_NONE, serial.STOPBITS_ONE)
 
 pattern = re.compile("^([0-9a-f]{16}) ([0-9a-f]{16}) ([0-9a-f]{16}) ([0-9a-f]{8})\r\n$")
 

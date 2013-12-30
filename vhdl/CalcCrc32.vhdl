@@ -27,7 +27,7 @@ begin
 
     -- Subtract polynomial if what we shift out, xorred with the bit, is '0'.
 
-    if crc(0) xor b = '0' then
+    if (crc(0) xor b) = '0' then
         update_crc := update_crc xor x"edb88320";
     end if;
 
@@ -60,13 +60,13 @@ begin
         vNext := rCurrent;
 
         if RESET then
-            vNext.crc := (others => '0');
+            vNext.crc32 := (others => '0');
         end if;
 
         if NIBBLE_VALID then
             -- work from the rightmost bit up.
             for i in 0 to 3 loop
-                vNext.crc32 := UpdateCRC(vNext.crc, NIBBLE(i));
+                vNext.crc32 := UpdateCRC(vNext.crc32, NIBBLE(i));
             end loop;
         end if;
 
