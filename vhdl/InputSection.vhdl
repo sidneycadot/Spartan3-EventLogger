@@ -1,3 +1,4 @@
+
 library ieee;
 
 use ieee.std_logic_1164.all,
@@ -58,10 +59,10 @@ begin
             vNext.lastEmittedData      := rCurrent.lastData;
             vNext.sequenceNr           := rCurrent.sequenceNr + 1;
 
-            vNext.eventDataValid := true;        
+            vNext.eventDataValid := true;
 
         else
-            vNext.eventDataValid := false;        
+            vNext.eventDataValid := false;
         end if;
 
         vNext.lastData  := MONITOR_DATA;

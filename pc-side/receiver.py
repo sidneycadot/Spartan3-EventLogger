@@ -1,8 +1,8 @@
 #! /usr/bin/env python
 
-import serial, re, binascii, time
+import serial, re, binascii, time, sys
 
-fpga = serial.Serial("/dev/ttyUSB1", 115200, serial.EIGHTBITS, serial.PARITY_NONE, serial.STOPBITS_ONE)
+fpga = serial.Serial("/dev/ttyUSB2", 115200, serial.EIGHTBITS, serial.PARITY_NONE, serial.STOPBITS_ONE)
 
 pattern = re.compile("^([0-9a-f]{16}) ([0-9a-f]{16}) ([0-9a-f]{16}) ([0-9a-f]{8})\r\n$")
 
@@ -41,3 +41,5 @@ for line in fpga:
     data = int(data, 16)
 
     print "%20.9f %20d %20d %20d" % (t, sequenceNr, timestamp, data)
+
+    sys.stdout.flush()

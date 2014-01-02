@@ -1,3 +1,6 @@
+
+-- The CalcCrc32 entity calculates a 32-bit CRC using the 'standard' CRC-32 polynomial.
+
 library ieee;
 
 use ieee.std_logic_1164.all;

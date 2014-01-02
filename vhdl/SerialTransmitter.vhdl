@@ -48,7 +48,7 @@ type HoldCounterType is range 0 to HoldCounterPeriod - 1;
 
 type Registers is record
         state       : SerialTransmitterStateType;
-        holdCounter : HoldCounterType;     
+        holdCounter : HoldCounterType;
         octet       : std_logic_vector(7 downto 0);
         -- registered outputs
         octetReady  : boolean;
@@ -75,7 +75,7 @@ begin
     begin
 
         vNext := rCurrent;
- 
+
         case rCurrent.state is
             when Start | Bit0 | Bit1 | Bit2 | Bit3 | Bit4 | Bit5 | Bit6 | StopData =>
                 if vNext.holdCounter = 0 then
@@ -91,7 +91,7 @@ begin
                         vNext.octet := OCTET;
                         vNext.state := StopData;
                     else
-                        vNext.state := StopNoData;                    
+                        vNext.state := StopNoData;
                     end if;
                 else
                     vNext.holdCounter := vNext.holdCounter - 1;

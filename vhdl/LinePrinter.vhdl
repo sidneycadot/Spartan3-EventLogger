@@ -171,7 +171,7 @@ begin
         vNext.checksumReset       := false;
         vNext.checksumNibble      := "----";
         vNext.checksumNibbleValid := false;
-        
+
         if vProceed then
 
             -- We are using the print states to calculate the CRC of the concatenation of the
@@ -335,7 +335,7 @@ begin
                 end case;
 
             when SPACE_1 | SPACE_2 | SPACE_3 => -- ASCII space characters
-            
+
                 vNext.dataOut := x"20";
 
             when CR => -- ASCII carriage return character
@@ -357,7 +357,7 @@ begin
         vNext.dataOutValid := (vNext.state /= IDLE);
 
         -- determine vNext.dataInReady
-        
+
         vNext.dataInReady := (vNext.state = IDLE);
 
         if RESET then

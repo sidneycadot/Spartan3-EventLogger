@@ -1,3 +1,10 @@
+
+-- The EventFifo implements a fifo of EventType entries in terms of
+-- a lower-level FIFO that holds std_logic_vector entries.
+--
+-- This is accomplished by straightforward translation of the
+-- DATA_IN and DATA_OUT ports. All other ports are passed unchanged.
+
 library ieee;
 
 use ieee.std_logic_1164.all,
